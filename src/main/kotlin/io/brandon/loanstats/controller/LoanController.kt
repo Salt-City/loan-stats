@@ -15,6 +15,11 @@ import org.springframework.web.multipart.MultipartFile
 @RequestMapping("/loanStats")
 class LoanController(private val loanService: LoanService) {
 
+    /**
+     * fairly terrible but for what I am trying to do it gets the data into the service.
+     * I would usually go for more of an asynchronous call that hands back a unique websocket Id
+     * or something that the client can listen to for updates. For this example I just went with blocking
+     */
     @PostMapping("/load")
     fun loadData(@RequestParam("file") f: MultipartFile): String =
         loanService.loadData(f).fold(
@@ -22,6 +27,11 @@ class LoanController(private val loanService: LoanService) {
             ifRight = { it }
         )
 
+    /**
+     * This was pretty nice and fast. I can more or less create queries within less than a minute based on any
+     * desire on how they want to be able to query the data. I'll admit I didn't use too much fancy stuff with
+     * regard to GraphQL, but it works well and the data is easy to get to
+     */
     @QueryMapping
     fun finDataById(@Argument id: Int): FinData? = loanService.finDataById(id)
     @QueryMapping

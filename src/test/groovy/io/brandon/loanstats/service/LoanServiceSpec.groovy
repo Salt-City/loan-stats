@@ -3,9 +3,13 @@ package io.brandon.loanstats.service
 import io.brandon.loanstats.model.ApplicationType
 import io.brandon.loanstats.model.LoanStatus
 import org.springframework.mock.web.MockMultipartFile
-import org.springframework.web.multipart.MultipartFile
 import spock.lang.Specification
 
+/**
+ * pretty pathetic test coverage here, but I ran out of time and was having a lot of fun messing with the GraphQL stuff.
+ * This test did come in handy making sure that I was parsing things correctly. There are A LOT of tests that would be needed
+ * here to handle all the edge cases of such unreliable data input though
+ */
 class LoanServiceSpec extends Specification {
 
     def "ValidateLoanServiceLoad"() {
