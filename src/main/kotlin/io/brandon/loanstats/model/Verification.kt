@@ -7,7 +7,7 @@ enum class Verification {
     UNKNOWN;
 
     companion object {
-        fun fromString(s: String): Verification = when (s.lowercase()) {
+        fun fromString(s: String?): Verification = when (s?.lowercase()) {
             "not verified" -> NOT_VERIFIED
             "verified" -> VERIFIED
             "source verified" -> SOURCE_VERIFIED

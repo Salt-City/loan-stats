@@ -7,7 +7,7 @@ enum class LoanStatus {
     UNKNOWN;
 
     companion object {
-        fun fromString(s: String): LoanStatus = when (s.lowercase()) {
+        fun fromString(s: String?): LoanStatus = when (s?.lowercase()) {
             "fully paid" -> FULLY_PAID
             "charged off" -> CHARGED_OFF
             "current" -> CURRENT

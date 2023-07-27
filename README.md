@@ -53,3 +53,22 @@ Oh, you want all that functional goodness like Either, Ior, monads, proper Optio
 https://arrow-kt.io
 
 I would recommend anyone who has ever read the Scala "red book" to give the "orange book" a whirl: https://www.manning.com/books/functional-programming-in-kotlin
+
+#### GraphQL
+I think that the graphQL stuff in Spring-Boot is pretty solid, and I found the longest part of this exercise to be just modeling the data. After that though it is fairly trivial to 
+whip together some solid queries that allow the user to grab whatever data however they want.
+
+for Example:
+```graphql
+{
+    finDataGroupedByGrade {
+        grade
+        finData {
+            id
+            loanAmount
+        }
+    }
+}
+```
+
+returns a nice grouping with just the loan amounts

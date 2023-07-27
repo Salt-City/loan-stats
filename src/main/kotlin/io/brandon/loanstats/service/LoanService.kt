@@ -1,8 +1,13 @@
 package io.brandon.loanstats.service
 
 import arrow.core.Either
+import com.univocity.parsers.csv.CsvParser
+import com.univocity.parsers.csv.CsvParserSettings
 import io.brandon.loanstats.error.LoanStatsError
 import io.brandon.loanstats.model.FinData
+import io.brandon.loanstats.model.GradeToData
+import io.brandon.loanstats.model.State
+import io.brandon.loanstats.model.StateToData
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
@@ -11,6 +16,11 @@ import java.util.concurrent.ConcurrentHashMap
 private val logger = KotlinLogging.logger {}
 @Service
 class LoanService {
+    val csvParser = CsvParser(CsvParserSettings().apply {
+        this.format.setLineSeparator("\n")
+        this.ignoreLeadingWhitespaces = true
+        this.nullValue = ""
+    })
     companion object {
         /**
          *  Why go with an in-mem (mutable) hashmap? My vision for this application is one that
@@ -36,10 +46,10 @@ class LoanService {
         Either.catch {
             dataMap.clear()
             f.inputStream.bufferedReader().use {
-                it.forEachLine { s ->
+                csvParser.parseAll(it).forEach { s ->
                     FinData.fromLine(s).fold(
                         ifLeft = { e -> logger.warn { "won't add line $s because of error: ${e.message}" } },
-                        ifRight = { fin -> dataMap[fin.id] = fin }
+                        ifRight = { fin -> dataMap[fin.id!!] = fin }
                     )
                 }
             }
@@ -47,4 +57,13 @@ class LoanService {
             ifLeft = { t -> Either.Left(LoanStatsError.CsvParseError(t.message ?: t::class.java.name)) },
             ifRight = { Either.Right("Ok") }
         )
+
+    fun finDataById(id: Int): FinData? = dataMap[id.toLong()]
+    fun finDataByState(state: State): List<FinData> = basicFilters { it.addressState == state }
+    fun finDataByGrade(grade: String): List<FinData> = basicFilters { it.grade?.lowercase() == grade.lowercase() }
+    fun finDataByFicoRange(min: Int, max: Int): List<FinData> = basicFilters { it.ficoRangeLow != null && it.ficoRangeLow >= min && it.ficoRangeHigh != null && it.ficoRangeHigh <= max }
+    fun finDataGroupedByState(): List<StateToData> = basicGrouping { it.addressState ?: State.UNKNOWN }.map { StateToData(it.key, it.value) }
+    fun finDataGroupedByGrade(): List<GradeToData> = basicGrouping { it.grade ?: "Unknown" }.map { GradeToData(it.key, it.value) }
+    private fun basicFilters(f: (FinData) -> Boolean): List<FinData> = dataMap.values.filter(f)
+    private fun<A> basicGrouping(f: (FinData) -> A): Map<A, List<FinData>> = dataMap.values.groupBy(f)
 }

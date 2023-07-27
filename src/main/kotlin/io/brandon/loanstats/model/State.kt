@@ -23,7 +23,7 @@ enum class State {
     UNKNOWN;
 
     companion object {
-        fun fromString(s: String): State = when (s.lowercase()) {
+        fun fromString(s: String?): State = when (s?.lowercase()) {
             "alabama" -> AL
             "alaska" -> AK
             "arizona" -> AZ
