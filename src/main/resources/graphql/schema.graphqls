@@ -1,0 +1,222 @@
+type Query {
+    finDataById(id: Int!): FinData
+    finDataByState(state: State): [FinData]!
+    finDataByGrade(grade: String!): [FinData]!
+    finDataByFicoRange(min: Int!, max: Int!): [FinData]!
+
+    finDataGroupedByState: [FinDataByState]!
+    finDataGroupedByGrade: [FinDataByGrade]!
+}
+
+type FinDataByState {
+    state: State
+    finData: [FinData]
+}
+
+type FinDataByGrade {
+    grade: String!
+    finData: [FinData]!
+}
+
+type FinData {
+    id: Int
+    memberId: String
+    loanAmount: Float
+    fundedAmount: Float
+    fundedAmountInv: Float
+    term: String
+    intRate: Float
+    installment: Float
+    grade: String
+    subGrade: String
+    employeeTitle: String
+    employeeLength: String
+    homeOwnerShip: Ownership
+    annualIncome: Int
+    verificationStatus: Verification
+    issued: String
+    loanStatus: LoanStatus
+    paymentPlan: String
+    url: String
+    desc: String
+    purpose: String
+    title: String
+    zipCode: String
+    addressState: State
+    dti: Float
+    delinqTwoYears: Int
+    earliestCrLine: String
+    ficoRangeLow: Int
+    ficoRangeHigh: Int
+    inqLastSixMonths: Int
+    monthsSinceLastDelinq: Int
+    monthsSinceLastRecord: Int
+    openAccounts: Int
+    publicRecords: Int
+    revolBal: Int
+    revolUtil: Float
+    totalAcc: Int
+    initialListStatus: String
+    outPrncp: Float
+    outPrncpInv: Float
+    totalPayment: Float
+    totalPaymentInv: Float
+    totalRecPrncp: Float
+    totalRecInt: Float
+    totalRecLateFee: Float
+    recoveries: Float
+    collectionRecoveryFee: Float
+    lastPaymentD: String
+    lastPaymentAmount: Float
+    nextPaymentD: String
+    lastCreditPullD: String
+    lastFicoRangeHigh: Int
+    lastFicoRangeLow: Int
+    collectionsTwelveMonthsExMed: Int
+    monthsSinceLastMajorDerog: Int
+    policyCode: Int
+    applicationType: ApplicationType
+    annualIncJoint: Int
+    dtiJoint: Int
+    verificationStatusJoint: Verification
+    accNowDelinq: Int
+    totCollectionAmount: Int
+    totalCurrentBalance: Int
+    openAccSixMonths: Int
+    openAccountIl: Int
+    openIlTwelveMonths: Int
+    openIlTwentyFourMonths: Int
+    monthsSinceRcntIl: Int
+    totalBalIl: Int
+    ilUtil: Int
+    openRvTwelveMonths: Int
+    openRvTwentyFourMonths: Int
+    maxBalBc: Int
+    allUtil: Int
+    totalRevHiLim: Int
+    inqFi: Int
+    totalCuTl: Int
+    inqLastTwelveMonths: Int
+    accOpenPastTwentyFourMonths: Int
+    averageCurrentBalance: Int
+    bcOpenToBuy: Int
+    bcUtil: Float
+    chargeOffWithinTwelveMonths: Int
+    delinqAmount: Int
+    monthsSinceOldIlAccount: Int
+    monthsSinceOldRevIlAccount: Int
+    monthsSinceOldRcntRevTlOp: Int
+    monthsSinceRcntTl: Int
+    mortgageAccount: Int
+    monthsSinceRecentBc: Int
+    monthsSinceRecentBcDlq: Int
+    monthsSinceRecentInq: Int
+    monthsSinceRecentRevolDelinq: Int
+    numberAccountsOverOneTwentyPd: Int
+    numberActiveBcTl: Int
+    numberActiveRevTi: Int
+    numberBcSats: Int
+    numberBcTi: Int
+    numberIlTi: Int
+    numberOpRevTl: Int
+    numberRevAccounts: Int
+    numberRevTiBalGtZero: Int
+    numSats: Int
+    numTiOneTwentyDpdTwoM: Int
+    numTiThirtyDpd: Int
+    numTiNinetygDpdTwentyFourM: Int
+    numberTiOpPastTwelveMonths: Int
+    pctTiNvrDlq: Int
+    percentBcGtSeventyFive: Int
+    pubRecBankruptcies: Int
+    taxLiens: Int
+    totHiCredLimit: Int
+    totalBalExMort: Int
+    totalBcLimit: Int
+    totalIlHighCreditLimit: Int
+    revolBalJoint: Int
+    secAppFicoRangeLow: Int
+    secAppFicoRangeHigh: Int
+    secAppEarliestCreditLine: String
+    secAppInqLastSixMonths: Int
+    secAppMortAccount: Int
+    secAppOpenAccounts: Int
+    secAppRevolUtil: Float
+    secAppOpenAccountIl: Int
+    secAppNumRevAccounts: Int
+    secAppChargeOffWithinTwelveMonths: Int
+    secAppCollectionsTwelveMonthsExMed: Int
+    secAppMonthsSinceLAstMajorDerog: Int
+    hardshipFlag: String
+    hardshipType: String
+    hardshipReason: String
+    hardshipStatus: String
+    deferralTerm: String
+    hardshipAmount: Float
+    hardshipStartDate: String
+    hardShipEndDate: String
+    paymentPlanStartDate: String
+    hardshipLength: Int
+    hardshipDpd: Int
+    hardshipLoanStatus: String
+    origProjectedAdditionalAccruedInterest: String
+    hardshipPayoffBalanceAmount: Float
+    hardshipLastPaymentAmount: Float
+    deptSettlementFlag: String
+    debtSettlementFlagDate: String
+    settlementStatus: String
+    settlementDate: String
+    settlementAmount: Int
+    settlementPercentage: Int
+    settlementTerm: Int
+}
+
+enum Ownership {
+    MORTGAGE
+    RENT
+    OWN
+    UNKNOWN
+}
+
+enum State {
+    AL, AK, AZ, AR, AS,
+    CA, CO, CT,
+    DE, DC,
+    FL,
+    GA, GU,
+    HI,
+    ID, IL, IN, IA,
+    KS, KY,
+    LA,
+    ME, MD, MA, MI, MN, MS, MO, MT, MP,
+    NE, NV, NH, NJ, NM, NY, NC, ND,
+    OH, OK, OR,
+    PA, PR,
+    RI,
+    SC, SD,
+    TN, TX, TT,
+    UT,
+    VT, VA, VI,
+    WA, WV, WI, WY,
+    UNKNOWN
+}
+
+enum LoanStatus {
+    FULLY_PAID
+    CHARGED_OFF
+    CURRENT
+    UNKNOWN
+}
+
+enum Verification {
+    NOT_VERIFIED
+    VERIFIED
+    SOURCE_VERIFIED
+    UNKNOWN
+}
+
+enum ApplicationType {
+    INDIVIDUAL
+    JOINT_APP
+    UNKNOWN
+}

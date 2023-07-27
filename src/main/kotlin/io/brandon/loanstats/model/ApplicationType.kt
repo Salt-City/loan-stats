@@ -6,7 +6,7 @@ enum class ApplicationType {
     UNKNOWN;
 
     companion object {
-        fun fromString(s: String): ApplicationType = when (s.lowercase()) {
+        fun fromString(s: String?): ApplicationType = when (s?.lowercase()) {
             "individual" -> INDIVIDUAL
             "joint app" -> JOINT_APP
             else -> UNKNOWN

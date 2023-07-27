@@ -7,7 +7,7 @@ enum class Ownership {
     UNKNOWN;
 
     companion object {
-        fun fromString(s: String): Ownership = when (s.lowercase()) {
+        fun fromString(s: String?): Ownership = when (s?.lowercase()) {
             "mortgage" -> MORTGAGE
             "rent" -> RENT
             "own" -> OWN

@@ -1,4 +1,4 @@
-package io.brandon.loanstats
+package io.brandon.loanstats.config
 
 import jakarta.servlet.MultipartConfigElement
 import org.springframework.boot.web.servlet.MultipartConfigFactory

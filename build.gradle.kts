@@ -27,9 +27,11 @@ dependencies {
 	implementation("io.arrow-kt:arrow-core:1.2.0")
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
 	implementation("org.codehaus.groovy:groovy-all:3.0.8")
+	implementation("com.univocity:univocity-parsers:2.9.1")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.spockframework:spock-core:2.0-groovy-3.0")
+	testImplementation("org.spockframework:spock-spring:2.0-groovy-3.0")
 	testImplementation("org.springframework.graphql:spring-graphql-test")
 }
 
