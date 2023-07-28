@@ -12,12 +12,21 @@ The following will need to be installed:
 
 ### Usage
 
-Endpoints:
+First if you want to get this running go ahead and use:
+```bash
+./gradlew bootRun
+```
 
-// Need to add
+Once you see that startup, you can then navigate to something like Postman:
+
+1. Load some csv data, I used the file provided for this exercise
+![loading data](docs/images/load.png)
+2. At this point you can make any type of qraphQL query you would like by using the `/graphql` endpoint
+![graphQl Example](docs/images/graphQl.png)
 
 ### Testing
-// Need to add
+
+Could be better!
 
 ### Stack
 
